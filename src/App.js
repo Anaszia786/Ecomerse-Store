@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Todo from "./Todo";
+import Cart from "./Shoping/cart";
+import Navbar from "./common/navbar";
+import AddProduct from "./Shoping/AddProduct";
+import Dashboard from "./components/dashboard";
+import Login from "./components/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import Payment from "./pages/payment";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          {/* <Route path="/" element={<Todo/>}/> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/shopingcart"
+            element={
+              <PrivateRoute>  
+                <Cart />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/add-product"
+            element={
+              <PrivateRoute>
+                <AddProduct />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <PrivateRoute>  
+                <Payment />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
